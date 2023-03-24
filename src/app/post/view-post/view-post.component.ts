@@ -4,8 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PostModel } from 'src/app/shared/post-model';
 import { throwError } from 'rxjs';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { CommentPayload } from 'src/app/comment/comment.payload';
 import { CommentService } from 'src/app/comment/comment.service';
+import { CommentPayload } from 'src/app/comments/comment-payload';
 
 @Component({
   selector: 'app-view-post',
@@ -39,9 +39,9 @@ export class ViewPostComponent implements OnInit {
   }
 
   postComment() {
-    this.commentPayload.text = this.commentForm.get('text').value;
+    this.commentPayload.text = this.commentForm?.get('text')?.value;
     this.commentService.postComment(this.commentPayload).subscribe(data => {
-      this.commentForm.get('text').setValue('');
+      this.commentForm?.get('text')?.setValue('');
       this.getCommentsForPost();
     }, error => {
       throwError(error);
